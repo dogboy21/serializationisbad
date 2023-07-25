@@ -1,0 +1,112 @@
+{
+    "executeBlocking": true,
+    "patchModules": [
+        {
+            "classesToPatch": [
+                "net.bdew.lib.network.SerializedMessageCodec"
+            ],
+            "classAllowlist": [],
+            "packageAllowlist": [
+                "net.bdew"
+            ]
+        },
+        {
+            "classesToPatch": [
+                "com.enderio.core.common.config.PacketConfigSync"
+            ],
+            "classAllowlist": [],
+            "packageAllowlist": [
+                "crazypants",
+                "com.enderio"
+            ]
+        },
+        {
+            "classesToPatch": [
+                "p455w0rd.danknull.network.PacketConfigSync"
+            ],
+            "classAllowlist": [],
+            "packageAllowlist": [
+                "p455w0rd.danknull"
+            ]
+        },
+        {
+            "classesToPatch": [
+                "reborncore.common.network.ExtendedPacketBuffer"
+            ],
+            "classAllowlist": [
+                "java.math.BigInteger"
+            ],
+            "packageAllowlist": []
+        },
+        {
+            "classesToPatch": [
+                "makeo.gadomancy.common.network.packets.PacketUpdateGolemTypeOrder",
+                "makeo.gadomancy.common.network.packets.PacketSyncConfigs"
+            ],
+            "classAllowlist": [],
+            "packageAllowlist": [
+                "makeo.gadomancy"
+            ]
+        },
+        {
+            "classesToPatch": [
+                "org.wyldmods.simpleachievements.common.networking.MessageSendAchievements"
+            ],
+            "classAllowlist": [],
+            "packageAllowlist": [
+                "org.wyldmods.simpleachievements"
+            ]
+        },
+        {
+            "classesToPatch": [
+                "immersive_armors.cobalt.network.Message"
+            ],
+            "classAllowlist": [],
+            "packageAllowlist": [
+                "immersive_armors"
+            ]
+        },
+        {
+            "classesToPatch": [
+                "gcewing.projectblue.BaseNBTChannel$NBTCodec"
+            ],
+            "classAllowlist": [],
+            "packageAllowlist": [
+                "gcewing.projectblue"
+            ]
+        },
+        {
+            "classesToPatch": [
+                "com.github.technus.tectech.mechanics.spark.RendererMessage"
+            ],
+            "classAllowlist": [],
+            "packageAllowlist": [
+                "com.github.technus"
+            ]
+        },
+        {
+            "classesToPatch": [
+                "com.n247s.N2ConfigApi.api.networking.N2ConfigApiMessageHandler"
+            ],
+            "classAllowlist": [],
+            "packageAllowlist": [
+                "com.n247s.N2ConfigApi"
+            ]
+        }
+    ],
+    "classAllowlist": [
+        "boolean",
+        "byte",
+        "char",
+        "short",
+        "int",
+        "long",
+        "float",
+        "double",
+        "void"
+    ],
+    "packageAllowlist": [
+        "java.util",
+        "java.lang"
+    ]
+}
