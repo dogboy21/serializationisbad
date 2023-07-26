@@ -92,6 +92,24 @@
             "packageAllowlist": [
                 "com.n247s.N2ConfigApi"
             ]
+        },
+        {
+            "classesToPatch": [
+                "p455w0rd.endermanevo.network.PacketFriendermanRegistrySync"
+            ],
+            "classAllowlist": [],
+            "packageAllowlist": [
+                "p455w0rd.endermanevo"
+            ]
+        },
+        {
+            "classesToPatch": [
+                "com.mattdahepic.mdecore.config.sync.PacketConfigSync"
+            ],
+            "classAllowlist": [],
+            "packageAllowlist": [
+                "com.mattdahepic"
+            ]
         }
     ],
     "classAllowlist": [
