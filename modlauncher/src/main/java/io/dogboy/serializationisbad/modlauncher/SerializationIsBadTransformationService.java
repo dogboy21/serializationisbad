@@ -36,4 +36,7 @@ public class SerializationIsBadTransformationService implements ITransformationS
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void beginScanning(IEnvironment environment) { }
+
 }

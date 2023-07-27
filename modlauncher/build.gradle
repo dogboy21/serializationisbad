@@ -1,6 +1,6 @@
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '16'
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 dependencies {
     implementation project(':core')
-    implementation 'cpw.mods:modlauncher:10.0.9'
+    implementation 'cpw.mods:modlauncher:8.0.0'
 }
