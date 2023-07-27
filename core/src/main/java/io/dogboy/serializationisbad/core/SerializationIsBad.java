@@ -20,7 +20,8 @@ public class SerializationIsBad {
 
     public static void init(File minecraftDir) {
         if (SerializationIsBad.instance != null) {
-            throw new IllegalStateException("Cannot create multiple instances of SerializationIsBad");
+            SerializationIsBad.logger.warn("Attempted to initialize SerializationIsBad twice, skipping");
+            return;
         }
 
         SerializationIsBad.instance = new SerializationIsBad(minecraftDir);
