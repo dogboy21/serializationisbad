@@ -1,0 +1,15 @@
+dependencies {
+    implementation project(':core')
+    implementation 'net.minecraft:launchwrapper:1.12'
+}
+
+jar {
+    exclude("cpw/mods/fml/relauncher/FMLInjectionData.class")
+    exclude("net/minecraftforge/fml/relauncher/FMLInjectionData.class")
+
+    manifest {
+        attributes([
+                "FMLCorePlugin": "io.dogboy.serializationisbad.legacyforge.SerializationIsBadCoreMod",
+        ])
+    }
+}

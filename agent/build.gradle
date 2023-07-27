@@ -1,0 +1,12 @@
+dependencies {
+    implementation project(':core')
+}
+
+jar {
+    manifest {
+        attributes([
+                "Premain-Class": "io.dogboy.serializationisbad.agent.SerializationIsBadAgent",
+                "Can-Redefine-Classes": "true",
+        ])
+    }
+}
