@@ -15,10 +15,13 @@ import org.objectweb.asm.tree.TypeInsnNode;
 public class Patches {
 
     public static PatchModule getPatchModuleForClass(String className) {
-        return SerializationIsBad.getInstance().getConfig().getPatchModules().stream()
-                .filter(patchModule -> patchModule.getClassesToPatch().contains(className))
-                .findFirst()
-                .orElse(null);
+        for (PatchModule patchModule : SerializationIsBad.getInstance().getConfig().getPatchModules()) {
+            if (patchModule.getClassesToPatch().contains(className)) {
+                return patchModule;
+            }
+        }
+
+        return null;
     }
 
     public static ClassNode readClassNode(byte[] classBytecode) {

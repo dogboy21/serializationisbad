@@ -5,7 +5,7 @@ plugins {
 subprojects {
     apply plugin: 'java'
 
-    sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+    sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.7'
 
     repositories {
         maven {
