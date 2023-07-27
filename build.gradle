@@ -17,26 +17,16 @@ subprojects {
     }
 }
 
-jar {
-    manifest {
-        attributes([
-            "Specification-Title": rootProject.name,
-            "Specification-Vendor": "dogboy21",
-            "Specification-Version": "1",
-            "Implementation-Title": rootProject.name,
-            "Implementation-Version": "${rootProject.version}",
-            "Implementation-Vendor" : "dogboy21",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-        ])
-    }
-}
-
 task bundleJar(type: Jar, dependsOn: subprojects.assemble) {
     archivesBaseName = rootProject.name
     from project(':core').configurations.archives.allArtifacts.files.collect { zipTree(it) }
     from project(':legacyforge').configurations.archives.allArtifacts.files.collect { zipTree(it) }
     from project(':modlauncher').configurations.archives.allArtifacts.files.collect { zipTree(it) }
     from project(':agent').configurations.archives.allArtifacts.files.collect { zipTree(it) }
+
+    manifest {
+        from subprojects.collect{ it.jar.manifest }
+    }
 }
 
 build.dependsOn bundleJar
