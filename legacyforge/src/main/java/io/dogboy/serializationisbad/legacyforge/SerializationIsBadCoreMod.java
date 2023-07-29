@@ -13,12 +13,16 @@ public class SerializationIsBadCoreMod implements net.minecraftforge.fml.relaunc
     public static final String modId = "serializationisbad";
 
     public SerializationIsBadCoreMod() {
+        if (SerializationIsBad.isAgentActive()) return;
+
         File minecraftHome = SerializationIsBadCoreMod.getMinecraftHome();
         SerializationIsBad.init(minecraftHome);
     }
 
     @Override
     public String[] getASMTransformerClass() {
+        if (SerializationIsBad.isAgentActive()) return new String[0];
+
         return new String[]{ SIBTransformer.class.getCanonicalName() };
     }
 

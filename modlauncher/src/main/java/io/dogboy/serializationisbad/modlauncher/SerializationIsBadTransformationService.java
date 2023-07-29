@@ -7,6 +7,7 @@ import cpw.mods.modlauncher.api.IncompatibleEnvironmentException;
 import io.dogboy.serializationisbad.core.SerializationIsBad;
 
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -20,6 +21,8 @@ public class SerializationIsBadTransformationService implements ITransformationS
 
     @Override
     public void initialize(IEnvironment environment) {
+        if (SerializationIsBad.isAgentActive()) return;
+
         Path minecraftDir = environment.getProperty(IEnvironment.Keys.GAMEDIR.get())
                 .orElseThrow(() -> new RuntimeException("No game path found"));
 
@@ -31,6 +34,8 @@ public class SerializationIsBadTransformationService implements ITransformationS
 
     @Override
     public List<ITransformer> transformers() {
+        if (SerializationIsBad.isAgentActive()) return Collections.emptyList();
+
         return SerializationIsBad.getInstance().getConfig().getPatchModules().stream()
                 .map(SIBTransformer::new)
                 .collect(Collectors.toList());

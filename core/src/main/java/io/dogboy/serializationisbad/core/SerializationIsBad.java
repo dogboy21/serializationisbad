@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 public class SerializationIsBad {
     public static final Logger logger = LogManager.getLogger(SerializationIsBad.class);
     private static SerializationIsBad instance;
+    private static boolean agentActive = false;
 
     public static SerializationIsBad getInstance() {
         return SerializationIsBad.instance;
@@ -24,6 +25,11 @@ public class SerializationIsBad {
             return;
         }
 
+        String implementationType = SerializationIsBad.getImplementationType();
+        if (implementationType.equals("agent")) {
+            SerializationIsBad.agentActive = true;
+        }
+        SerializationIsBad.logger.info("Initializing SerializationIsBad, implementation type: " + implementationType);
         SerializationIsBad.instance = new SerializationIsBad(minecraftDir);
     }
 
@@ -57,4 +63,18 @@ public class SerializationIsBad {
         return new SIBConfig();
     }
 
+    private static String getImplementationType() {
+        for (StackTraceElement stackTraceElement : Thread.currentThread().getStackTrace()) {
+            if (stackTraceElement.getClassName().startsWith("io.dogboy.serializationisbad.")
+                    && !stackTraceElement.getClassName().startsWith("io.dogboy.serializationisbad.core.")) {
+                return stackTraceElement.getClassName().split("[.]")[3];
+            }
+        }
+
+        return "unknown";
+    }
+
+    public static boolean isAgentActive() {
+        return SerializationIsBad.agentActive;
+    }
 }
