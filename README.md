@@ -21,19 +21,19 @@ Attackers already attempted (and succeeded in some cases) Microsoft access token
 
 We developed a patcher that attempts to fix all currently known affected mods (listed below).
 
-Should any more affected mods be discovered, a patch is as simple as updating the related config file. (We will publish a relesae that automates this for you)
+~~Should any more affected mods be discovered, a patch is as simple as updating the related config file. (We will publish a relesae that automates this for you)~~ Version 1.3 of the patch now automatically uses the the latest version of [the config file](https://github.com/dogboy21/serializationisbad/blob/master/serializationisbad.json) and otherwise falls back to the local config file. If there's no config present, there should be an error informing the user that there are currently no patches applied.
 
 ### Minecraft Forge 1.7.x - latest
 
 - Download the JAR file from the latest release on the [releases page](https://github.com/dogboy21/serializationisbad/releases)
 - Add the JAR file to your mods folder
-- Download the latest config file from [this Github repository](https://github.com/dogboy21/serializationisbad/blob/master/serializationisbad.json) and add it directly to your instances config directory
+- ~~Download the latest config file from [this Github repository](https://github.com/dogboy21/serializationisbad/blob/master/serializationisbad.json) and add it directly to your instances config directory~~  Version 1.3 of the patch now automatically uses the the latest version of [the config file](https://github.com/dogboy21/serializationisbad/blob/master/serializationisbad.json)
 
 ### Any other instances
 
 - Download the JAR file from the latest release on the [releases page](https://github.com/dogboy21/serializationisbad/releases) and save it somewhere
 - Add the following JVM argument to your client/server (refer to the documentation of the client/server launcher you are using on how to do this): `-javaagent:<PATH TO SAVED JAR FILE>`
-- Download the latest config file from [this Github repository](https://github.com/dogboy21/serializationisbad/blob/master/serializationisbad.json) and add it directly to your instances config directory
+- ~~Download the latest config file from [this Github repository](https://github.com/dogboy21/serializationisbad/blob/master/serializationisbad.json) and add it directly to your instances config directory~~ Version 1.3 of the patch now automatically uses the the latest version of [the config file](https://github.com/dogboy21/serializationisbad/blob/master/serializationisbad.json)
 
 ## Affected mods
 
