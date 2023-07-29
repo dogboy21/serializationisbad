@@ -1,4 +1,5 @@
 {
+    "scanAllClasses": true,
     "executeBlocking": true,
     "patchModules": [
         {

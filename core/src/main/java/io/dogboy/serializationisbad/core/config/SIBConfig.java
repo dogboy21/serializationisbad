@@ -6,16 +6,26 @@ import java.util.List;
 import java.util.Set;
 
 public class SIBConfig {
+    private boolean scanAllClasses;
     private boolean executeBlocking;
     private List<PatchModule> patchModules;
     private Set<String> classAllowlist;
     private Set<String> packageAllowlist;
 
     public SIBConfig() {
+        this.scanAllClasses = true;
         this.executeBlocking = true;
         this.patchModules = new ArrayList<>();
         this.classAllowlist = new HashSet<>();
         this.packageAllowlist = new HashSet<>();
+    }
+
+    public boolean isScanAllClasses() {
+        return this.scanAllClasses;
+    }
+
+    public void setScanAllClasses(boolean scanAllClasses) {
+        this.scanAllClasses = scanAllClasses;
     }
 
     public boolean isExecuteBlocking() {

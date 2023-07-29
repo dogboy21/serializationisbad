@@ -14,6 +14,14 @@ import org.objectweb.asm.tree.TypeInsnNode;
 
 public class Patches {
 
+    public static boolean shouldPatchClass(String className) {
+        return SerializationIsBad.getInstance().getConfig().isScanAllClasses() || isClassKnown(className);
+    }
+
+    public static boolean isClassKnown(String className) {
+        return getPatchModuleForClass(className) != PatchModule.EMPTY;
+    }
+
     public static PatchModule getPatchModuleForClass(String className) {
         for (PatchModule patchModule : SerializationIsBad.getInstance().getConfig().getPatchModules()) {
             if (patchModule.getClassesToPatch().contains(className)) {
@@ -21,7 +29,7 @@ public class Patches {
             }
         }
 
-        return null;
+        return PatchModule.EMPTY;
     }
 
     public static ClassNode readClassNode(byte[] classBytecode) {
@@ -38,6 +46,13 @@ public class Patches {
     }
 
     public static void applyPatches(String className, ClassNode classNode) {
+        boolean isClassKnown = isClassKnown(className);
+        boolean patched = false;
+
+        if (isClassKnown) {
+            SerializationIsBad.logger.info("Applying patches to " + className);
+        }
+
         for (MethodNode methodNode : classNode.methods) {
             InsnList instructions = methodNode.instructions;
             for (int i = 0; i < instructions.size(); i++) {
@@ -61,8 +76,12 @@ public class Patches {
                     instructions.insertBefore(instruction, additionalInstructions);
 
                     SerializationIsBad.logger.info("  (2/2) Redirecting ObjectInputStream to ClassFilteringObjectInputStream in method " + methodNode.name);
+                    patched = true;
                 }
             }
+        }
+        if (patched && !isClassKnown) {
+            SerializationIsBad.logger.warn("Applied ObjectInputStream patches in unknown class " + className + ", please report this to the developers of SerializationIsBad responsibly.");
         }
     }
 
