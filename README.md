@@ -61,7 +61,7 @@ Because of the rushed announcement, we are currently unable to give exact versio
 - Immersive Armors
 - Immersive Aircraft
 - Immersive Paintings
-- JourneyMap
+- JourneyMap (Fixed introduced in 1.16.5-5.7.1 and fixed in 1.16.5-5.7.2 No other versions were effected) 
 - LanteaCraft / SGCraft
 - LogisticsPipes
 - Minecraft Comes Alive (MCA)
