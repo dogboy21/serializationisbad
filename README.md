@@ -42,6 +42,8 @@ Although some of them already are fixed in the latest versions, these mods were 
 
 **KEEP IN MIND THAT THIS LIST IS DEFINITELY NOT COMPLETE. THESE ARE JUST THE MODS WE ARE CURRENTLY AWARE OF. At least Curseforge is already investigating the issue internally so we can maybe get a nearly complete list of vulnerable mods and versions in the future.**
 
+Because of the rushed announcement, we are currently unable to give exact version ranges of affected mods. If you want to help out with that, feel free to contribute to this list.
+
 - AetherCraft
 - Advent of Ascension (Nevermine)
 - Arrows Plus
@@ -72,7 +74,7 @@ Although some of them already are fixed in the latest versions, these mods were 
 - SimpleAchievements
 - SmartMoving
 - Strange
-- SuperMartijn642's Config Lib
+- SuperMartijn642's Config Lib (Fixed in version 1.0.9, [relevant security advisory](https://github.com/SuperMartijn642/SuperMartijn642sConfigLib/security/advisories/GHSA-f4r5-w453-2jx6))
 - Thaumic Tinkerer
 - Tough Expansion
 - ttCore
