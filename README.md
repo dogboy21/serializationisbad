@@ -52,7 +52,7 @@ Because of the rushed announcement, we are currently unable to give exact versio
 - [Carbonization](https://www.curseforge.com/minecraft/mc-mods/carbonization)
 - [Custom Friends Capes](https://www.curseforge.com/minecraft/mc-mods/custom-friends-capes)
 - [DankNull](https://www.curseforge.com/minecraft/mc-mods/dank-null)
-- Energy Manipulation
+- [Energy Manipulation](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1290125-1-6-4-1-6-2-1-5-2-1-4-7-energy-manipulation-1-1)
 - [EnderCore](https://www.curseforge.com/minecraft/mc-mods/endercore)
 - [EndermanEvolution](https://www.curseforge.com/minecraft/mc-mods/enderman-evolution)
 - Extrafirma
