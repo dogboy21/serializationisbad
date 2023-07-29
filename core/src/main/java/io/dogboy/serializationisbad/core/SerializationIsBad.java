@@ -15,6 +15,8 @@ public class SerializationIsBad {
     private static SerializationIsBad instance;
     private static boolean agentActive = false;
 
+    private static final String remoteConfigUrl = "https://raw.githubusercontent.com/dogboy21/serializationisbad/master/serializationisbad.json";
+
     public static SerializationIsBad getInstance() {
         return SerializationIsBad.instance;
     }
@@ -50,7 +52,11 @@ public class SerializationIsBad {
     private static SIBConfig readConfig(File minecraftDir) {
         File configFile = new File(new File(minecraftDir, "config"), "serializationisbad.json");
 
-        if (configFile.isFile()) {
+        SIBConfig remoteConfig = SerializationIsBad.readRemoteConfig();
+        if (remoteConfig != null) {
+            SerializationIsBad.logger.info("Using remote config file");
+            return remoteConfig;
+        } else if (configFile.isFile()) {
             Gson gson = new Gson();
             try (FileInputStream fileInputStream = new FileInputStream(configFile)) {
                 return gson.fromJson(new InputStreamReader(fileInputStream, StandardCharsets.UTF_8),
@@ -60,7 +66,18 @@ public class SerializationIsBad {
             }
         }
 
-        return new SIBConfig();
+        throw new RuntimeException("You are currently using SerializationIsBad without a config file. The mod on its own doesn't do anything so please install a config file patching the vulnerabilities to " + configFile);
+    }
+
+    private static SIBConfig readRemoteConfig() {
+        Gson gson = new Gson();
+        try (InputStreamReader inputStreamReader = new InputStreamReader(new java.net.URL(SerializationIsBad.remoteConfigUrl).openStream(), StandardCharsets.UTF_8)) {
+            return gson.fromJson(inputStreamReader, SIBConfig.class);
+        } catch (Exception e) {
+            SerializationIsBad.logger.error("Failed to load remote config file", e);
+        }
+
+        return null;
     }
 
     private static String getImplementationType() {
@@ -77,4 +94,5 @@ public class SerializationIsBad {
     public static boolean isAgentActive() {
         return SerializationIsBad.agentActive;
     }
+
 }
