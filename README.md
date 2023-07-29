@@ -47,7 +47,7 @@ Because of the rushed announcement, we are currently unable to give exact versio
 - AetherCraft
 - Advent of Ascension (Nevermine)
 - Arrows Plus
-- Astral Sorcery
+- Astral Sorcery (affected versions: <=1.9.1)
 - BdLib
 - Carbonization
 - Custom Friends Capes
