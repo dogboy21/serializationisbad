@@ -45,28 +45,28 @@ Although some of them already are fixed in the latest versions, these mods were 
 Because of the rushed announcement, we are currently unable to give exact version ranges of affected mods. If you want to help out with that, feel free to contribute to this list.
 
 - AetherCraft
-- Advent of Ascension (Nevermine)
+- Advent of Ascension (Nevermine) (Only affects versions for Minecraft 1.12.2)
 - Arrows Plus
 - Astral Sorcery (affected versions: <=1.9.1)
-- BdLib
+- BdLib (Only affects versions for Minecraft 1.8.9-1.12.2)
 - Carbonization
 - Custom Friends Capes
 - DankNull
 - Energy Manipulation
-- EnderCore
+- EnderCore (Only affects versions for Minecraft 1.9-1.13)
 - EndermanEvolution
 - Extrafirma
 - Gadomancy
 - Giacomo's Bookshelf
-- Immersive Armors
+- Immersive Armors (Fixed in version 1.5.6 for Minecraft 1.18.2, 1.19.2-1.19.4, 1.20, versions for 1.16.5, 1.17.1, 1.18.1, 1.19.0, 1.19.1 remain affected, [relevant commit](https://github.com/Luke100000/ImmersiveArmors/issues/68))
 - Immersive Aircraft
 - Immersive Paintings
 - JourneyMap (Fixed introduced in 1.16.5-5.7.1 and fixed in 1.16.5-5.7.2 No other versions were effected) 
 - LanteaCraft / SGCraft
-- LogisticsPipes
-- Minecraft Comes Alive (MCA)
-- MattDahEpic Core (MDECore)
-- mxTune
+- LogisticsPipes (Fixed in version 0.10.3.114, [relevant commit](https://github.com/RS485/LogisticsPipes/commit/39a90b8f2d1a2bcc512ec68c3e139f1dac07aa56))
+- Minecraft Comes Alive (MCA) (Only affects versions for Minecraft 1.5.2-1.6.4)
+- MattDahEpic Core (MDECore) (Only affects versions for Minecraft 1.8.8-1.12.2)
+- mxTune (Only affects versions for Minecraft 1.12-1.16.5)
 - p455w0rd's Things
 - Project Blue
 - RadixCore
@@ -75,9 +75,9 @@ Because of the rushed announcement, we are currently unable to give exact versio
 - SmartMoving
 - Strange
 - SuperMartijn642's Config Lib (Fixed in version 1.0.9, [relevant security advisory](https://github.com/SuperMartijn642/SuperMartijn642sConfigLib/security/advisories/GHSA-f4r5-w453-2jx6))
-- Thaumic Tinkerer
+- Thaumic Tinkerer (Fixed in version 2.3-138 for Minecraft 1.7.2, versions for 1.6-1.6.4 remain affected, [relevant commit](https://github.com/Thaumic-Tinkerer/ThaumicTinkerer/commit))
 - Tough Expansion
-- ttCore
+- ttCore (Only affects versions for Minecraft 1.7.10)
 
 ## Credits
 
