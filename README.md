@@ -70,7 +70,7 @@ Because of the rushed announcement, we are currently unable to give exact versio
 - p455w0rd's Things
 - Project Blue
 - RadixCore
-- RebornCore
+- RebornCore (affected versions: >= 3.13.8, <4.7.3, [relevant security advisory](https://github.com/TechReborn/RebornCore/security/advisories/GHSA-r7pg-4xrf-7mrm))
 - SimpleAchievements
 - SmartMoving
 - Strange
