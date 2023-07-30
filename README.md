@@ -48,7 +48,7 @@ Because of the rushed announcement, we are currently unable to give exact versio
 - [Advent of Ascension (Nevermine)](https://www.curseforge.com/minecraft/mc-mods/advent-of-ascension-nevermine) (Only affects versions for Minecraft 1.12.2)
 - [Arrows Plus](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1290719-1-6-2-ssp-smp-arrows-plus-v1-0-0-minecraft)
 - [Astral Sorcery](https://www.curseforge.com/minecraft/mc-mods/astral-sorcery) (affected versions: <=1.9.1)
-- [BdLib](https://www.curseforge.com/minecraft/mc-mods/bdlib) (Only affects versions for Minecraft 1.8.9-1.12.2)
+- [BdLib](https://www.curseforge.com/minecraft/mc-mods/bdlib) (Only affects versions for Minecraft 1.7.10-1.12.2)
 - [Carbonization](https://www.curseforge.com/minecraft/mc-mods/carbonization)
 - [Custom Friends Capes](https://www.curseforge.com/minecraft/mc-mods/custom-friends-capes)
 - [CustomOreGen](https://www.curseforge.com/minecraft/mc-mods/customoregen)
