@@ -44,40 +44,40 @@ Although some of them already are fixed in the latest versions, these mods were 
 
 Because of the rushed announcement, we are currently unable to give exact version ranges of affected mods. If you want to help out with that, feel free to contribute to this list.
 
-- AetherCraft
-- Advent of Ascension (Nevermine)
-- Arrows Plus
-- Astral Sorcery (affected versions: <=1.9.1)
-- BdLib
-- Carbonization
-- Custom Friends Capes
-- DankNull
-- Energy Manipulation
-- EnderCore
-- EndermanEvolution
+- [AetherCraft](https://www.curseforge.com/minecraft/mc-mods/aec)
+- [Advent of Ascension (Nevermine)](https://www.curseforge.com/minecraft/mc-mods/advent-of-ascension-nevermine)
+- [Arrows Plus](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1290719-1-6-2-ssp-smp-arrows-plus-v1-0-0-minecraft)
+- [Astral Sorcery](https://www.curseforge.com/minecraft/mc-mods/astral-sorcery) (affected versions: <=1.9.1)
+- [BdLib](https://www.curseforge.com/minecraft/mc-mods/bdlib)
+- [Carbonization](https://www.curseforge.com/minecraft/mc-mods/carbonization)
+- [Custom Friends Capes](https://www.curseforge.com/minecraft/mc-mods/custom-friends-capes)
+- [DankNull](https://www.curseforge.com/minecraft/mc-mods/dank-null)
+- [Energy Manipulation](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1290125-1-6-4-1-6-2-1-5-2-1-4-7-energy-manipulation-1-1)
+- [EnderCore](https://www.curseforge.com/minecraft/mc-mods/endercore)
+- [EndermanEvolution](https://www.curseforge.com/minecraft/mc-mods/enderman-evolution)
 - Extrafirma
-- Gadomancy
-- Giacomo's Bookshelf
-- Immersive Armors
-- Immersive Aircraft
-- Immersive Paintings
-- JourneyMap (Fixed introduced in 1.16.5-5.7.1 and fixed in 1.16.5-5.7.2 No other versions were effected) 
-- LanteaCraft / SGCraft
-- LogisticsPipes
-- Minecraft Comes Alive (MCA)
-- MattDahEpic Core (MDECore)
-- mxTune
-- p455w0rd's Things
-- Project Blue
-- RadixCore
-- RebornCore (affected versions: >= 3.13.8, <4.7.3, [relevant security advisory](https://github.com/TechReborn/RebornCore/security/advisories/GHSA-r7pg-4xrf-7mrm))
-- SimpleAchievements
-- SmartMoving
-- Strange
-- SuperMartijn642's Config Lib (Fixed in version 1.0.9, [relevant security advisory](https://github.com/SuperMartijn642/SuperMartijn642sConfigLib/security/advisories/GHSA-f4r5-w453-2jx6))
-- Thaumic Tinkerer
-- Tough Expansion
-- ttCore
+- [Gadomancy](https://www.curseforge.com/minecraft/mc-mods/gadomancy)
+- [Giacomo's Bookshelf](https://www.curseforge.com/minecraft/mc-mods/giacomos-bookshelf)
+- [Immersive Armors](https://www.curseforge.com/minecraft/mc-mods/immersive-armors)
+- [Immersive Aircraft](https://www.curseforge.com/minecraft/mc-mods/immersive-aircraft)
+- [Immersive Paintings](https://www.curseforge.com/minecraft/mc-mods/immersive-paintings)
+- [JourneyMap](https://www.curseforge.com/minecraft/mc-mods/journeymap) (Fixed introduced in 1.16.5-5.7.1 and fixed in 1.16.5-5.7.2 No other versions were effected)
+- [LanteaCraft / SGCraft](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1292427-lanteacraft)
+- [LogisticsPipes](https://www.curseforge.com/minecraft/mc-mods/logistics-pipes)
+- [Minecraft Comes Alive (MCA)](https://www.curseforge.com/minecraft/mc-mods/minecraft-comes-alive-mca)
+- [MattDahEpic Core (MDECore)](https://www.curseforge.com/minecraft/mc-mods/mattdahepic-core)
+- [mxTune](https://www.curseforge.com/minecraft/mc-mods/mxtune)
+- [p455w0rd's Things](https://www.curseforge.com/minecraft/mc-mods/p455w0rds-things)
+- [Project Blue](https://www.csse.canterbury.ac.nz/greg.ewing/minecraft/mods/ProjectBlue/)
+- [RadixCore](https://www.curseforge.com/minecraft/mc-mods/radixcore)
+- [RebornCore](https://www.curseforge.com/minecraft/mc-mods/reborncore) (affected versions: >= 3.13.8, <4.7.3, [relevant security advisory](https://github.com/TechReborn/RebornCore/security/advisories/GHSA-r7pg-4xrf-7mrm))
+- [SimpleAchievements](https://www.curseforge.com/minecraft/mc-mods/simple-achievements)
+- [SmartMoving](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1274224-smart-moving)
+- [Strange](https://www.curseforge.com/minecraft/mc-mods/strange)
+- [SuperMartijn642's Config Lib](https://www.curseforge.com/minecraft/mc-mods/supermartijn642s-config-lib) (Fixed in version 1.0.9, [relevant security advisory](https://github.com/SuperMartijn642/SuperMartijn642sConfigLib/security/advisories/GHSA-f4r5-w453-2jx6))
+- [Thaumic Tinkerer](https://www.curseforge.com/minecraft/mc-mods/thaumic-tinkerer)
+- [Tough Expansion](https://www.curseforge.com/minecraft/mc-mods/tough-expansion)
+- [ttCore](https://www.curseforge.com/minecraft/mc-mods/ttcore)
 
 ## Credits
 
