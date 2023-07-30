@@ -63,7 +63,7 @@ Because of the rushed announcement, we are currently unable to give exact versio
 - [Immersive Paintings](https://www.curseforge.com/minecraft/mc-mods/immersive-paintings)
 - [JourneyMap](https://www.curseforge.com/minecraft/mc-mods/journeymap) (Fixed introduced in 1.16.5-5.7.1 and fixed in 1.16.5-5.7.2 No other versions were effected)
 - [LanteaCraft / SGCraft](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1292427-lanteacraft)
-- [LogisticsPipes](https://www.curseforge.com/minecraft/mc-mods/logistics-pipes) (Fixed in version 0.10.3.114, [relevant commit](https://github.com/RS485/LogisticsPipes/commit/39a90b8f2d1a2bcc512ec68c3e139f1dac07aa56))
+- [LogisticsPipes](https://www.curseforge.com/minecraft/mc-mods/logistics-pipes) (Only affects versions for Minecraft 1.4.7-1.7.10. Fixed in version 0.10.0.71 for MC 1.7.10, [relevant security advisory](https://github.com/RS485/LogisticsPipes/security/advisories/GHSA-mcp7-xf3v-25x3))
 - [Minecraft Comes Alive (MCA)](https://www.curseforge.com/minecraft/mc-mods/minecraft-comes-alive-mca) (Only affects versions for Minecraft 1.5.2-1.6.4)
 - [MattDahEpic Core (MDECore)](https://www.curseforge.com/minecraft/mc-mods/mattdahepic-core) (Only affects versions for Minecraft 1.8.8-1.12.2)
 - [mxTune](https://www.curseforge.com/minecraft/mc-mods/mxtune) (Only affects versions for Minecraft 1.12-1.16.5)
