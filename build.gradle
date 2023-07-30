@@ -23,6 +23,7 @@ task bundleJar(type: Jar, dependsOn: subprojects.assemble) {
     from project(':legacyforge').configurations.archives.allArtifacts.files.collect { zipTree(it) }
     from project(':modlauncher').configurations.archives.allArtifacts.files.collect { zipTree(it) }
     from project(':agent').configurations.archives.allArtifacts.files.collect { zipTree(it) }
+    from 'LICENSE.txt'
 
     manifest {
         from subprojects.collect{ it.jar.manifest }
