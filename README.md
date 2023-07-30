@@ -26,6 +26,7 @@ We developed a patcher that attempts to fix all currently known affected mods (l
 ### Minecraft Forge 1.7.x - latest
 
 - Download the JAR file from the latest release on the [releases page](https://github.com/dogboy21/serializationisbad/releases)
+  - The fix is now also available on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/serializationisbad) (the Modrinth release is currently under review)
 - Add the JAR file to your mods folder
 - ~~Download the latest config file from [this Github repository](https://github.com/dogboy21/serializationisbad/blob/master/serializationisbad.json) and add it directly to your instances config directory~~  Version 1.3 of the patch now automatically uses the the latest version of [the config file](https://github.com/dogboy21/serializationisbad/blob/master/serializationisbad.json)
 
