@@ -51,6 +51,7 @@ Because of the rushed announcement, we are currently unable to give exact versio
 - [BdLib](https://www.curseforge.com/minecraft/mc-mods/bdlib) (Only affects versions for Minecraft 1.8.9-1.12.2)
 - [Carbonization](https://www.curseforge.com/minecraft/mc-mods/carbonization)
 - [Custom Friends Capes](https://www.curseforge.com/minecraft/mc-mods/custom-friends-capes)
+- [CustomOreGen](https://www.curseforge.com/minecraft/mc-mods/customoregen)
 - [DankNull](https://www.curseforge.com/minecraft/mc-mods/dank-null)
 - [Energy Manipulation](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1290125-1-6-4-1-6-2-1-5-2-1-4-7-energy-manipulation-1-1)
 - [EnderCore](https://www.curseforge.com/minecraft/mc-mods/endercore) (Only affects versions for Minecraft 1.9-1.13)
