@@ -2,8 +2,9 @@ package io.dogboy.serializationisbad.core;
 
 import com.google.gson.Gson;
 import io.dogboy.serializationisbad.core.config.SIBConfig;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import io.dogboy.serializationisbad.core.logger.ILogger;
+import io.dogboy.serializationisbad.core.logger.Log4JLogger;
+import io.dogboy.serializationisbad.core.logger.NativeLogger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,7 +12,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 public class SerializationIsBad {
-    public static final Logger logger = LogManager.getLogger(SerializationIsBad.class);
+    public static final ILogger logger = initLogger("SerializationIsBad");
     private static SerializationIsBad instance;
     private static boolean agentActive = false;
 
@@ -33,6 +34,18 @@ public class SerializationIsBad {
         }
         SerializationIsBad.logger.info("Initializing SerializationIsBad, implementation type: " + implementationType);
         SerializationIsBad.instance = new SerializationIsBad(minecraftDir);
+    }
+
+    private static ILogger initLogger(String name) {
+        try {
+            // Check if needed Log4J classes are available
+            Class.forName("org.apache.logging.log4j.LogManager");
+            Class.forName("org.apache.logging.log4j.Logger");
+            return new Log4JLogger(name);
+        } catch (ClassNotFoundException e) {
+            // Fallback to Java native logger
+            return new NativeLogger(name);
+        }
     }
 
     private final SIBConfig config;
