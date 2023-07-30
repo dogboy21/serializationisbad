@@ -340,6 +340,15 @@
             "packageAllowlist": [
                 "tterrag"
             ]
+        },
+        {
+            "classesToPatch": [
+                "com.n247s.N2ConfigApi.api.networking.N2ConfigApiMessageHandler"
+            ],
+            "classAllowlist": [],
+            "packageAllowlist": [
+                "com.n247s"
+            ]
         }
     ],
     "classAllowlist": [

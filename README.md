@@ -50,6 +50,7 @@ Because of the rushed announcement, we are currently unable to give exact versio
 - [Astral Sorcery](https://www.curseforge.com/minecraft/mc-mods/astral-sorcery) (affected versions: <=1.9.1)
 - [BdLib](https://www.curseforge.com/minecraft/mc-mods/bdlib) (Only affects versions for Minecraft 1.8.9-1.12.2)
 - [Carbonization](https://www.curseforge.com/minecraft/mc-mods/carbonization)
+- [CreativeCore](https://www.curseforge.com/minecraft/mc-mods/creativecore) (Only affects versions for Minecraft 1.7.10)
 - [Custom Friends Capes](https://www.curseforge.com/minecraft/mc-mods/custom-friends-capes)
 - [CustomOreGen](https://www.curseforge.com/minecraft/mc-mods/customoregen)
 - [DankNull](https://www.curseforge.com/minecraft/mc-mods/dank-null)
