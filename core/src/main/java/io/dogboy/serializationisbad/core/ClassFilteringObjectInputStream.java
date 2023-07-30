@@ -18,9 +18,12 @@ public class ClassFilteringObjectInputStream extends ObjectInputStream {
     }
 
     private boolean isClassAllowed(String className) {
-        if (className.startsWith("[L") && className.endsWith(";")) {
-            className = className.substring(2, className.length() - 1);
-        } else if (className.startsWith("L") && className.endsWith(";")) {
+        // strip all array dimensions, just get the base type
+        while (className.startsWith("[")) {
+            className = className.substring(1);
+        }
+
+        if (className.startsWith("L") && className.endsWith(";")) {
             className = className.substring(1, className.length() - 1);
         }
 
