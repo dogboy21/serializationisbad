@@ -56,7 +56,7 @@ Because of the rushed announcement, we are currently unable to give exact versio
 - [CustomOreGen](https://www.curseforge.com/minecraft/mc-mods/customoregen)
 - [DankNull](https://www.curseforge.com/minecraft/mc-mods/dank-null)
 - [Energy Manipulation](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1290125-1-6-4-1-6-2-1-5-2-1-4-7-energy-manipulation-1-1)
-- [EnderCore](https://www.curseforge.com/minecraft/mc-mods/endercore) (Only affects versions for Minecraft 1.9-1.13)
+- [EnderCore](https://www.curseforge.com/minecraft/mc-mods/endercore) (Fixed introduced in 1.7.10-0.2.0.40_beta, 1.10-0.4.0.36-beta, 1.10.2-0.4.1.67-beta and 1.12.2-0.5.77. See [#36](https://github.com/dogboy21/serializationisbad/issues/36))
 - [EndermanEvolution](https://www.curseforge.com/minecraft/mc-mods/enderman-evolution)
 - Extrafirma
 - [Gadomancy](https://www.curseforge.com/minecraft/mc-mods/gadomancy)
