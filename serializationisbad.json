@@ -340,6 +340,15 @@
             "packageAllowlist": [
                 "tterrag"
             ]
+        },
+        {
+            "classesToPatch": [
+                "mods.gra.energymanipulator.client.ClientPacketHandler"
+            ],
+            "classAllowlist": [],
+            "packageAllowlist": [
+                "mods.gra.energymanipulator"
+            ]
         }
     ],
     "classAllowlist": [
