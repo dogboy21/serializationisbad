@@ -26,6 +26,7 @@ We developed a patcher that attempts to fix all currently known affected mods (l
 ### Minecraft Forge 1.7.x - latest
 
 - Download the JAR file from the latest release on the [releases page](https://github.com/dogboy21/serializationisbad/releases)
+  - The fix is now also available on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/serializationisbad) (the Modrinth release is currently under review)
 - Add the JAR file to your mods folder
 - ~~Download the latest config file from [this Github repository](https://github.com/dogboy21/serializationisbad/blob/master/serializationisbad.json) and add it directly to your instances config directory~~  Version 1.3 of the patch now automatically uses the the latest version of [the config file](https://github.com/dogboy21/serializationisbad/blob/master/serializationisbad.json)
 
@@ -56,7 +57,7 @@ Because of the rushed announcement, we are currently unable to give exact versio
 - [CustomOreGen](https://www.curseforge.com/minecraft/mc-mods/customoregen)
 - [DankNull](https://www.curseforge.com/minecraft/mc-mods/dank-null)
 - [Energy Manipulation](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1290125-1-6-4-1-6-2-1-5-2-1-4-7-energy-manipulation-1-1)
-- [EnderCore](https://www.curseforge.com/minecraft/mc-mods/endercore) (Only affects versions for Minecraft 1.7.10-1.13. Fixed in the following versions: 0.5.77 for MC 1.12.2, 0.4.1.67-beta for MC 1.10.2, 0.2.0.40_beta for 1.7.10)
+- [EnderCore](https://www.curseforge.com/minecraft/mc-mods/endercore) (Fixed introduced in 1.7.10-0.2.0.40_beta, 1.10-0.4.0.36-beta, 1.10.2-0.4.1.67-beta and 1.12.2-0.5.77. See [#36](https://github.com/dogboy21/serializationisbad/issues/36))
 - [EndermanEvolution](https://www.curseforge.com/minecraft/mc-mods/enderman-evolution)
 - Extrafirma
 - [Gadomancy](https://www.curseforge.com/minecraft/mc-mods/gadomancy) (Fixed in version 1.1.2 by [unofficial fork](https://github.com/GTNewHorizons/Gadomancy))
@@ -64,7 +65,7 @@ Because of the rushed announcement, we are currently unable to give exact versio
 - [Immersive Armors](https://www.curseforge.com/minecraft/mc-mods/immersive-armors) (Fixed in version 1.5.6 for Minecraft 1.18.2, 1.19.2-1.19.4, 1.20, versions for 1.16.5, 1.17.1, 1.18.1, 1.19.0, 1.19.1 remain affected, [relevant commit](https://github.com/Luke100000/ImmersiveArmors/issues/68))
 - [Immersive Aircraft](https://www.curseforge.com/minecraft/mc-mods/immersive-aircraft)
 - [Immersive Paintings](https://www.curseforge.com/minecraft/mc-mods/immersive-paintings)
-- [JourneyMap](https://www.curseforge.com/minecraft/mc-mods/journeymap) (Fixed introduced in 1.16.5-5.7.1 and fixed in 1.16.5-5.7.2 No other versions were effected)
+- [JourneyMap](https://www.curseforge.com/minecraft/mc-mods/journeymap) (Issue introduced in 1.16.5-5.7.1 and fixed in 1.16.5-5.7.2 No other versions were effected)
 - [LanteaCraft / SGCraft](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1292427-lanteacraft)
 - [LogisticsPipes](https://www.curseforge.com/minecraft/mc-mods/logistics-pipes) (Only affects versions for Minecraft 1.4.7-1.7.10. Fixed in version 0.10.0.71 for MC 1.7.10, [relevant security advisory](https://github.com/RS485/LogisticsPipes/security/advisories/GHSA-mcp7-xf3v-25x3))
 - [Minecraft Comes Alive (MCA)](https://www.curseforge.com/minecraft/mc-mods/minecraft-comes-alive-mca) (Only affects versions for Minecraft 1.5.2-1.6.4)
