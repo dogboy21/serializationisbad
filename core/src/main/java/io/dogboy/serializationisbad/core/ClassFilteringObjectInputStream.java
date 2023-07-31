@@ -6,15 +6,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectStreamClass;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 public class ClassFilteringObjectInputStream extends ObjectInputStream {
     private final PatchModule patchModule;
+    private final ClassLoader parentClassLoader;
 
-    public ClassFilteringObjectInputStream(InputStream in, PatchModule patchModule) throws IOException {
+    public ClassFilteringObjectInputStream(InputStream in, PatchModule patchModule, ClassLoader parentClassLoader) throws IOException {
         super(in);
         this.patchModule = patchModule;
+        this.parentClassLoader = parentClassLoader;
+    }
+
+    public ClassFilteringObjectInputStream(InputStream in, PatchModule patchModule) throws IOException {
+        this(in, patchModule, null);
     }
 
     private boolean isClassAllowed(String className) {
@@ -51,7 +58,34 @@ public class ClassFilteringObjectInputStream extends ObjectInputStream {
                 throw new ClassNotFoundException("Class " + desc.getName() + " is not allowed to be deserialized");
         }
 
-        return super.resolveClass(desc);
+        if (this.parentClassLoader == null) {
+            return super.resolveClass(desc);
+        }
+
+        String name = desc.getName();
+        try {
+            return Class.forName(name, false, this.parentClassLoader);
+        } catch (ClassNotFoundException ex) {
+            Class<?> cl = ClassFilteringObjectInputStream.primClasses.get(name);
+            if (cl != null) {
+                return cl;
+            } else {
+                throw ex;
+            }
+        }
+    }
+
+    private static final HashMap<String, Class<?>> primClasses = new HashMap<>(8, 1.0F);
+    static {
+        ClassFilteringObjectInputStream.primClasses.put("boolean", boolean.class);
+        ClassFilteringObjectInputStream.primClasses.put("byte", byte.class);
+        ClassFilteringObjectInputStream.primClasses.put("char", char.class);
+        ClassFilteringObjectInputStream.primClasses.put("short", short.class);
+        ClassFilteringObjectInputStream.primClasses.put("int", int.class);
+        ClassFilteringObjectInputStream.primClasses.put("long", long.class);
+        ClassFilteringObjectInputStream.primClasses.put("float", float.class);
+        ClassFilteringObjectInputStream.primClasses.put("double", double.class);
+        ClassFilteringObjectInputStream.primClasses.put("void", void.class);
     }
 
 }

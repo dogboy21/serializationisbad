@@ -1,7 +1,6 @@
 package io.dogboy.serializationisbad.agent;
 
 import io.dogboy.serializationisbad.core.Patches;
-import io.dogboy.serializationisbad.core.SerializationIsBad;
 import org.objectweb.asm.tree.ClassNode;
 
 import java.lang.instrument.ClassFileTransformer;
@@ -15,10 +14,8 @@ public class SIBTransformer implements ClassFileTransformer {
 
         if (Patches.getPatchModuleForClass(classNameDots) == null) return classfileBuffer;
 
-        SerializationIsBad.logger.info("Applying patches to " + classNameDots);
-
         ClassNode classNode = Patches.readClassNode(classfileBuffer);
-        Patches.applyPatches(classNameDots, classNode);
+        Patches.applyPatches(classNameDots, classNode, false);
         return Patches.writeClassNode(classNode);
     }
 }

@@ -10,10 +10,8 @@ public class SIBTransformer implements IClassTransformer {
     public byte[] transform(String name, String transformedName, byte[] basicClass) {
         if (Patches.getPatchModuleForClass(transformedName) == null) return basicClass;
 
-        SerializationIsBad.logger.info("Applying patches to " + transformedName);
-
         ClassNode classNode = Patches.readClassNode(basicClass);
-        Patches.applyPatches(transformedName, classNode);
+        Patches.applyPatches(transformedName, classNode, false);
         return Patches.writeClassNode(classNode);
     }
 }
