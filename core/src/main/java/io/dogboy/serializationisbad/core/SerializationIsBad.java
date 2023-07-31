@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 public class SerializationIsBad {
-    public static final ILogger logger = initLogger("SerializationIsBad");
+    public static final ILogger logger = SerializationIsBad.initLogger(SerializationIsBad.class.getCanonicalName());
     private static SerializationIsBad instance;
     private static boolean agentActive = false;
 

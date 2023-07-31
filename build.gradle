@@ -20,7 +20,7 @@ subprojects {
 
 task bundleJar(type: Jar, dependsOn: subprojects.assemble) {
     archivesBaseName = rootProject.name
-    from project(':core').configurations.archives.allArtifacts.files.collect { zipTree(it) }
+    from zipTree(new File (project(':core').buildDir, "libs/core-${project(':core').version}-all.jar")) // i'm currently unable to correctly get the shadowJar output, so this should work for now
     from project(':legacyforge').configurations.archives.allArtifacts.files.collect { zipTree(it) }
     from project(':modlauncher').configurations.archives.allArtifacts.files.collect { zipTree(it) }
     from project(':agent').configurations.archives.allArtifacts.files.collect { zipTree(it) }

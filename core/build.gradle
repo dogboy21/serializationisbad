@@ -20,3 +20,19 @@ jar {
         ])
     }
 }
+
+shadowJar {
+    dependencies {
+        exclude(dependency('org.apache.logging.log4j:log4j-api'))
+        exclude(dependency('org.ow2.asm:asm'))
+        exclude(dependency('org.ow2.asm:asm-tree'))
+    }
+
+    relocate 'com.google.gson', 'io.dogboy.serializationisbad.shadow.gson'
+}
+
+artifacts {
+    archives shadowJar
+}
+
+build.dependsOn shadowJar
