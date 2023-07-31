@@ -40,9 +40,11 @@ We developed a patcher that attempts to fix all currently known affected mods (l
 
 Unlike the blog post stated above, there are plenty of mods that are and could be affected by this issue. Although some of them are already fixed in their latest versions, these mods were exploitable in at least one older verison. It is to be expected that several modpacks over the years just are not maintained anymore, but are still popular and loved within the community. Keeping this in-mind, we are trying to help those people who still love running those modpacks and strive to keeping them safe as they play. 
 
-Here is an updated list we have of affected mods and what versions you can update to to keep you safe and what our project has patched:
+**KEEP IN MIND THAT THIS LIST IS DEFINITELY NOT COMPLETE! THESE ARE JUST THE MODS WE ARE CURRENTLY AWARE OF!** At least Curseforge is already investigating the issue internally so we can maybe get a nearly complete list of vulnerable mods and versions in the future.
 
-####[Affected Mods List](docs/mods.md)
+We have moved our affected mods list to another location! See the link below:
+
+**[Affected Mods List](docs/mods.md)**
 
 This list will change frequently as we find more mods that could have vulnerabilities and developers adding patches to their own mods. If you want to help us in keeping this list up-to-date, please feel free to contribute to it! 
 
