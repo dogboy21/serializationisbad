@@ -107,7 +107,7 @@ Credits to anyone that was involved in this:
 - oly2o6 (All the Mods Modpack Developer / Akliz Server Hoster)
 - PurpleIsEverything (Shadow Node Server Network)
 - Pyker (Technic Launcher Developer)
-- RyanTheAllmighty (ATLauncher Developer)
+- Rhyguy (ATLauncher Developer)
 - Saereth (Modpack Developer)
 - Sauramel (CraftDownUnder Server Network)
 - ThePixelbrain (MMCC Server Network)
