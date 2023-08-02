@@ -19,7 +19,7 @@ public class SIBTransformer implements ITransformer<ClassNode> {
 
     @Override
     public ClassNode transform(ClassNode input, ITransformerVotingContext context) {
-        Patches.applyPatches(input.name, input);
+        Patches.applyPatches(input.name.replace('/', '.'), input, true);
         return input;
     }
 

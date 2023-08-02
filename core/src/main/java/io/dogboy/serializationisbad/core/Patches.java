@@ -11,6 +11,7 @@ import org.objectweb.asm.tree.LdcInsnNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.TypeInsnNode;
+import org.objectweb.asm.tree.VarInsnNode;
 
 public class Patches {
 
@@ -37,7 +38,9 @@ public class Patches {
         return writer.toByteArray();
     }
 
-    public static void applyPatches(String className, ClassNode classNode) {
+    public static void applyPatches(String className, ClassNode classNode, boolean passClassLoader) {
+        SerializationIsBad.logger.info("Applying patches to " + className);
+
         for (MethodNode methodNode : classNode.methods) {
             InsnList instructions = methodNode.instructions;
             for (int i = 0; i < instructions.size(); i++) {
@@ -53,10 +56,20 @@ public class Patches {
                     ((MethodInsnNode) instruction).owner = "io/dogboy/serializationisbad/core/ClassFilteringObjectInputStream";
                     ((MethodInsnNode) instruction).desc = "(Ljava/io/InputStream;Lio/dogboy/serializationisbad/core/config/PatchModule;)V";
 
+                    if (passClassLoader) {
+                        ((MethodInsnNode) instruction).desc = "(Ljava/io/InputStream;Lio/dogboy/serializationisbad/core/config/PatchModule;Ljava/lang/ClassLoader;)V";
+                    }
+
                     InsnList additionalInstructions = new InsnList();
                     additionalInstructions.add(new LdcInsnNode(className));
                     additionalInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "io/dogboy/serializationisbad/core/Patches",
                             "getPatchModuleForClass", "(Ljava/lang/String;)Lio/dogboy/serializationisbad/core/config/PatchModule;", false));
+
+                    if (passClassLoader) {
+                        additionalInstructions.add(new VarInsnNode(Opcodes.ALOAD, 0)); // this
+                        additionalInstructions.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "java/lang/Object", "getClass", "()Ljava/lang/Class;", false));
+                        additionalInstructions.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "java/lang/Class", "getClassLoader", "()Ljava/lang/ClassLoader;", false));
+                    }
 
                     instructions.insertBefore(instruction, additionalInstructions);
 
