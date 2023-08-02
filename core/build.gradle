@@ -1,4 +1,5 @@
 apply plugin: 'java-library'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
@@ -19,3 +20,19 @@ jar {
         ])
     }
 }
+
+shadowJar {
+    dependencies {
+        exclude(dependency('org.apache.logging.log4j:log4j-api'))
+        exclude(dependency('org.ow2.asm:asm'))
+        exclude(dependency('org.ow2.asm:asm-tree'))
+    }
+
+    relocate 'com.google.gson', 'io.dogboy.serializationisbad.shadow.gson'
+}
+
+artifacts {
+    archives shadowJar
+}
+
+build.dependsOn shadowJar

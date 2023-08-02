@@ -2,16 +2,22 @@ package io.dogboy.serializationisbad.core;
 
 import com.google.gson.Gson;
 import io.dogboy.serializationisbad.core.config.SIBConfig;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import io.dogboy.serializationisbad.core.logger.ILogger;
+import io.dogboy.serializationisbad.core.logger.Log4JLogger;
+import io.dogboy.serializationisbad.core.logger.NativeLogger;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 
 public class SerializationIsBad {
-    public static final Logger logger = LogManager.getLogger(SerializationIsBad.class);
+    public static final ILogger logger = SerializationIsBad.initLogger(SerializationIsBad.class.getCanonicalName());
     private static SerializationIsBad instance;
     private static boolean agentActive = false;
 
@@ -33,6 +39,18 @@ public class SerializationIsBad {
         }
         SerializationIsBad.logger.info("Initializing SerializationIsBad, implementation type: " + implementationType);
         SerializationIsBad.instance = new SerializationIsBad(minecraftDir);
+    }
+
+    private static ILogger initLogger(String name) {
+        try {
+            // Check if needed Log4J classes are available
+            Class.forName("org.apache.logging.log4j.LogManager");
+            Class.forName("org.apache.logging.log4j.Logger");
+            return new Log4JLogger(name);
+        } catch (ClassNotFoundException e) {
+            // Fallback to Java native logger
+            return new NativeLogger(name);
+        }
     }
 
     private final SIBConfig config;
@@ -71,8 +89,17 @@ public class SerializationIsBad {
 
     private static SIBConfig readRemoteConfig() {
         Gson gson = new Gson();
-        try (InputStreamReader inputStreamReader = new InputStreamReader(new java.net.URL(SerializationIsBad.remoteConfigUrl).openStream(), StandardCharsets.UTF_8)) {
-            return gson.fromJson(inputStreamReader, SIBConfig.class);
+        try {
+            HttpsURLConnection connection = (HttpsURLConnection) new URL(SerializationIsBad.remoteConfigUrl).openConnection();
+            SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
+            sslContext.init(null, null, new SecureRandom());
+            connection.setSSLSocketFactory(sslContext.getSocketFactory());
+
+            if (connection.getResponseCode() != 200) throw new IOException("Invalid response code: " + connection.getResponseCode());
+
+            try (InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8)) {
+                return gson.fromJson(inputStreamReader, SIBConfig.class);
+            }
         } catch (Exception e) {
             SerializationIsBad.logger.error("Failed to load remote config file", e);
         }
