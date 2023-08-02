@@ -26,13 +26,13 @@ We developed a patcher that attempts to fix all mods that we know of (list of mo
 ### Minecraft Forge 1.7.x - Latest
 
 - Download the JAR file from the latest release on the [releases page](https://github.com/dogboy21/serializationisbad/releases)
-  - The fix is now also available on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/serializationisbad) (Modrinth release is currently under review)
+  - The fix is now also available on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/serializationisbad) and [Modrinth](https://modrinth.com/mod/serializationisbad)
 - Add the JAR file to your mods folder
 - ~~Download the latest config file from [this Github repository](https://github.com/dogboy21/serializationisbad/blob/master/serializationisbad.json) and add it directly to your instances config directory~~  Version 1.3 of the patch now automatically uses the the latest version of [the config file](https://github.com/dogboy21/serializationisbad/blob/master/serializationisbad.json)
 
 ### Any Other Instances
 
-- Download the JAR file from the latest release on the [releases page](https://github.com/dogboy21/serializationisbad/releases) and save it somewhere
+- Download the JAR file from the latest release on the [releases page](https://github.com/dogboy21/serializationisbad/releases) (or alternatively from [CurseForge](https://www.curseforge.com/minecraft/mc-mods/serializationisbad) or [Modrinth](https://modrinth.com/mod/serializationisbad)) and save it somewhere
 - Add the following JVM argument to your client/server (refer to the documentation of the client/server launcher you are using on how to do this): `-javaagent:<PATH TO SAVED JAR FILE>`
 - ~~Download the latest config file from [this Github repository](https://github.com/dogboy21/serializationisbad/blob/master/serializationisbad.json) and add it directly to your instances config directory~~ Version 1.3 of the patch now automatically uses the the latest version of [the config file](https://github.com/dogboy21/serializationisbad/blob/master/serializationisbad.json)
 
