@@ -13,6 +13,9 @@ import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 public class Patches {
 
     public static PatchModule getPatchModuleForClass(String className) {
@@ -74,9 +77,45 @@ public class Patches {
                     instructions.insertBefore(instruction, additionalInstructions);
 
                     SerializationIsBad.logger.info("  (2/2) Redirecting ObjectInputStream to ClassFilteringObjectInputStream in method " + methodNode.name);
+                } else if (instruction.getOpcode() == Opcodes.INVOKESTATIC
+                        && instruction instanceof MethodInsnNode
+                        && "org/apache/commons/lang3/SerializationUtils".equals(((MethodInsnNode) instruction).owner)
+                        && "deserialize".equals(((MethodInsnNode) instruction).name)) {
+
+                    ((MethodInsnNode) instruction).owner = "io/dogboy/serializationisbad/core/Patches";
+
+                    if ("(Ljava/io/InputStream;)Ljava/lang/Object;".equals(((MethodInsnNode) instruction).desc)) {
+                        ((MethodInsnNode) instruction).desc = "(Ljava/io/InputStream;Lio/dogboy/serializationisbad/core/config/PatchModule;)Ljava/lang/Object;";
+                    } else if ("([B)Ljava/lang/Object;".equals(((MethodInsnNode) instruction).desc)) {
+                        ((MethodInsnNode) instruction).desc = "([BLio/dogboy/serializationisbad/core/config/PatchModule;)Ljava/lang/Object;";
+                    } else {
+                        throw new RuntimeException("Unknown desc for SerializationUtils.deserialize: " + ((MethodInsnNode) instruction).desc);
+                    }
+
+                    InsnList additionalInstructions = new InsnList();
+                    additionalInstructions.add(new LdcInsnNode(className));
+                    additionalInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "io/dogboy/serializationisbad/core/Patches",
+                            "getPatchModuleForClass", "(Ljava/lang/String;)Lio/dogboy/serializationisbad/core/config/PatchModule;", false));
+
+                    instructions.insertBefore(instruction, additionalInstructions);
+
+                    SerializationIsBad.logger.info("  Redirecting SerializationUtils.deserialize to Patches in method " + methodNode.name);
                 }
             }
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T deserialize(InputStream inputStream, PatchModule patchModule) {
+        try (ClassFilteringObjectInputStream objectInputStream = new ClassFilteringObjectInputStream(inputStream, patchModule)) {
+            return (T) objectInputStream.readObject();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static <T> T deserialize(byte[] objectData, PatchModule patchModule) {
+        return Patches.deserialize(new ByteArrayInputStream(objectData), patchModule);
     }
 
 }
