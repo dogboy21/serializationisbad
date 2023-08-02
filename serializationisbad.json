@@ -349,6 +349,15 @@
             "packageAllowlist": [
                 "mods.gra.energymanipulator"
             ]
+        },
+        {
+            "classesToPatch": [
+                "com.possible_triangle.brazier.network.ByteConfigSerializer"
+            ],
+            "classAllowlist": [],
+            "packageAllowlist": [
+                "com.possible_triangle.brazier"
+            ]
         }
     ],
     "classAllowlist": [
