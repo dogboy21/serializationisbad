@@ -28,20 +28,20 @@ public class Patches {
         return null;
     }
 
-    public static ClassNode readClassNode(byte[] classBytecode) {
+    private static ClassNode readClassNode(byte[] classBytecode) {
         ClassNode classNode = new ClassNode();
         ClassReader classReader = new ClassReader(classBytecode);
         classReader.accept(classNode, 0);
         return classNode;
     }
 
-    public static byte[] writeClassNode(ClassNode classNode) {
+    private static byte[] writeClassNode(ClassNode classNode) {
         ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);
         classNode.accept(writer);
         return writer.toByteArray();
     }
 
-    public static void applyPatches(String className, ClassNode classNode, boolean passClassLoader) {
+    private static void applyPatches(String className, ClassNode classNode, boolean passClassLoader) {
         SerializationIsBad.logger.info("Applying patches to " + className);
 
         for (MethodNode methodNode : classNode.methods) {
@@ -103,6 +103,12 @@ public class Patches {
                 }
             }
         }
+    }
+
+    public static byte[] patchClass(byte[] classBytes, String className, boolean passClassLoader) {
+        ClassNode classNode = Patches.readClassNode(classBytes);
+        Patches.applyPatches(className, classNode, passClassLoader);
+        return Patches.writeClassNode(classNode);
     }
 
     @SuppressWarnings("unchecked")

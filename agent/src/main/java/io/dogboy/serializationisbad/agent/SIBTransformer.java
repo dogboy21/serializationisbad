@@ -1,21 +1,25 @@
 package io.dogboy.serializationisbad.agent;
 
 import io.dogboy.serializationisbad.core.Patches;
-import org.objectweb.asm.tree.ClassNode;
+import io.dogboy.serializationisbad.core.SerializationIsBad;
 
 import java.lang.instrument.ClassFileTransformer;
-import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
 
 public class SIBTransformer implements ClassFileTransformer {
     @Override
-    public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
-        String classNameDots = className.replace('/', '.');
+    public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) {
+        try {
+            if (className == null) return classfileBuffer;
 
-        if (Patches.getPatchModuleForClass(classNameDots) == null) return classfileBuffer;
+            String classNameDots = className.replace('/', '.');
 
-        ClassNode classNode = Patches.readClassNode(classfileBuffer);
-        Patches.applyPatches(classNameDots, classNode, false);
-        return Patches.writeClassNode(classNode);
+            if (Patches.getPatchModuleForClass(classNameDots) == null) return classfileBuffer;
+
+            return Patches.patchClass(classfileBuffer, classNameDots, false);
+        } catch (Throwable e) {
+            SerializationIsBad.logger.error("Failed to run agent class transformer", e);
+            return classfileBuffer;
+        }
     }
 }

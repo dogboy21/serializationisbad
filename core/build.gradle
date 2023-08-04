@@ -3,7 +3,7 @@ apply plugin: 'com.github.johnrengelman.shadow'
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
-    api 'org.apache.logging.log4j:log4j-api:2.20.0'
+    implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
     api 'org.ow2.asm:asm-tree:9.5'
 }
 
@@ -24,11 +24,10 @@ jar {
 shadowJar {
     dependencies {
         exclude(dependency('org.apache.logging.log4j:log4j-api'))
-        exclude(dependency('org.ow2.asm:asm'))
-        exclude(dependency('org.ow2.asm:asm-tree'))
     }
 
     relocate 'com.google.gson', 'io.dogboy.serializationisbad.shadow.gson'
+    relocate 'org.objectweb.asm', 'io.dogboy.serializationisbad.shadow.asm'
 }
 
 artifacts {

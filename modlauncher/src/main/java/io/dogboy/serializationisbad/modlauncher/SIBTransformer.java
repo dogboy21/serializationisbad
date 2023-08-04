@@ -5,6 +5,8 @@ import cpw.mods.modlauncher.api.ITransformerVotingContext;
 import cpw.mods.modlauncher.api.TransformerVoteResult;
 import io.dogboy.serializationisbad.core.Patches;
 import io.dogboy.serializationisbad.core.config.PatchModule;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.ClassNode;
 
 import java.util.Set;
@@ -19,8 +21,12 @@ public class SIBTransformer implements ITransformer<ClassNode> {
 
     @Override
     public ClassNode transform(ClassNode input, ITransformerVotingContext context) {
-        Patches.applyPatches(input.name.replace('/', '.'), input, true);
-        return input;
+        // do not look at this weird fucking shit
+        // we need to write -> patch -> read the classes, so we can use the core shadowed ASM lib properly
+
+        byte[] classBytes = SIBTransformer.writeClassNode(input);
+        byte[] transformedClassBytes = Patches.patchClass(classBytes, input.name.replace('/', '.'), true);
+        return SIBTransformer.readClassNode(transformedClassBytes);
     }
 
     @Override
@@ -33,6 +39,19 @@ public class SIBTransformer implements ITransformer<ClassNode> {
         return this.patchModule.getClassesToPatch().stream()
                 .map(Target::targetClass)
                 .collect(Collectors.toSet());
+    }
+
+    private static ClassNode readClassNode(byte[] classBytecode) {
+        ClassNode classNode = new ClassNode();
+        ClassReader classReader = new ClassReader(classBytecode);
+        classReader.accept(classNode, 0);
+        return classNode;
+    }
+
+    private static byte[] writeClassNode(ClassNode classNode) {
+        ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);
+        classNode.accept(writer);
+        return writer.toByteArray();
     }
 
 }
