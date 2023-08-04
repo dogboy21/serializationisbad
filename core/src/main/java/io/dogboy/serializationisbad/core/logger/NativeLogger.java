@@ -1,32 +1,39 @@
 package io.dogboy.serializationisbad.core.logger;
 
-import java.util.logging.Logger;
 
 public class NativeLogger implements ILogger {
-    private final Logger logger;
+    private static final boolean debugEnabled = System.getProperty("serializationisbad.nativelogger.debug", "false").equalsIgnoreCase("true");
+
+    private final String name;
 
     public NativeLogger(String name) {
-        this.logger = Logger.getLogger(name);
+        this.name = name;
+    }
+
+    private void log(String level, String message) {
+        System.out.println("[" + level + "] [" + name + "]: " + message);
     }
 
     @Override
     public void debug(String message) {
-        logger.finest(message);
+        if (NativeLogger.debugEnabled) {
+            this.log("DEBUG", message);
+        }
     }
 
     @Override
     public void info(String message) {
-        logger.info(message);
+        this.log("INFO", message);
     }
 
     @Override
     public void warn(String message) {
-        logger.warning(message);
+        this.log("WARN", message);
     }
 
     @Override
     public void error(String message, Throwable throwable) {
-        logger.severe(message);
+        this.log("ERROR", message);
         throwable.printStackTrace();
     }
 }
