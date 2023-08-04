@@ -10,6 +10,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -20,8 +21,6 @@ public class SerializationIsBad {
     public static final ILogger logger = SerializationIsBad.initLogger(SerializationIsBad.class.getCanonicalName());
     private static SerializationIsBad instance;
     private static boolean agentActive = false;
-
-    private static final String remoteConfigUrl = "https://raw.githubusercontent.com/dogboy21/serializationisbad/master/serializationisbad.json";
 
     public static SerializationIsBad getInstance() {
         return SerializationIsBad.instance;
@@ -57,6 +56,9 @@ public class SerializationIsBad {
 
     private SerializationIsBad(File minecraftDir) {
         this.config = SerializationIsBad.readConfig(minecraftDir);
+        if (this.config.getPatchModules().isEmpty()) {
+            throw new RuntimeException("You are currently using SerializationIsBad without any patch modules configured. The mod on its own doesn't do anything so please install a config file patching the vulnerabilities");
+        }
 
         SerializationIsBad.logger.info("Loaded config file");
         SerializationIsBad.logger.info("  Blocking Enabled: " + this.config.isExecuteBlocking());
@@ -69,28 +71,43 @@ public class SerializationIsBad {
 
     private static SIBConfig readConfig(File minecraftDir) {
         File configFile = new File(new File(minecraftDir, "config"), "serializationisbad.json");
+        Gson gson = new Gson();
 
-        SIBConfig remoteConfig = SerializationIsBad.readRemoteConfig();
-        if (remoteConfig != null) {
-            SerializationIsBad.logger.info("Using remote config file");
-            return remoteConfig;
-        } else if (configFile.isFile()) {
-            Gson gson = new Gson();
+        SIBConfig localConfig = new SIBConfig();
+        if (configFile.isFile()) {
             try (FileInputStream fileInputStream = new FileInputStream(configFile)) {
-                return gson.fromJson(new InputStreamReader(fileInputStream, StandardCharsets.UTF_8),
+                localConfig = gson.fromJson(new InputStreamReader(fileInputStream, StandardCharsets.UTF_8),
                         SIBConfig.class);
             } catch (Exception e) {
-                SerializationIsBad.logger.error("Failed to load config file", e);
+                throw new RuntimeException("Failed to load local config file", e);
+            }
+        } else {
+            try (FileOutputStream fileOutputStream = new FileOutputStream(configFile)) {
+                fileOutputStream.write(gson.toJson(localConfig).getBytes(StandardCharsets.UTF_8));
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to create local config file", e);
             }
         }
 
-        throw new RuntimeException("You are currently using SerializationIsBad without a config file. The mod on its own doesn't do anything so please install a config file patching the vulnerabilities to " + configFile);
+        if (!localConfig.isUseRemoteConfig()) {
+            SerializationIsBad.logger.info("Using local config file");
+            return localConfig;
+        }
+
+        SIBConfig remoteConfig = SerializationIsBad.readRemoteConfig(localConfig.getRemoteConfigUrl());
+        if (remoteConfig != null) {
+            SerializationIsBad.logger.info("Using remote config file");
+            return remoteConfig;
+        }
+
+        SerializationIsBad.logger.info("Using local config file as a fallback");
+        return localConfig;
     }
 
-    private static SIBConfig readRemoteConfig() {
+    private static SIBConfig readRemoteConfig(String url) {
         Gson gson = new Gson();
         try {
-            HttpsURLConnection connection = (HttpsURLConnection) new URL(SerializationIsBad.remoteConfigUrl).openConnection();
+            HttpsURLConnection connection = (HttpsURLConnection) new URL(url).openConnection();
             SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
             sslContext.init(null, null, new SecureRandom());
             connection.setSSLSocketFactory(sslContext.getSocketFactory());
