@@ -26,6 +26,8 @@ task bundleJar(type: Jar, dependsOn: subprojects.assemble) {
     from project(':agent').configurations.archives.allArtifacts.files.collect { zipTree(it) }
     from 'LICENSE.txt'
 
+    exclude 'META-INF/versions/**'
+
     manifest {
         from subprojects.collect{ it.jar.manifest }
     }
