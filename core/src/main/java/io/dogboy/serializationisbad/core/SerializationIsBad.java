@@ -23,6 +23,8 @@ public class SerializationIsBad {
     private static boolean agentActive = false;
 
     public static SerializationIsBad getInstance() {
+        if (SerializationIsBad.instance == null) throw new IllegalStateException("SerializationIsBad has not been initialized yet");
+
         return SerializationIsBad.instance;
     }
 

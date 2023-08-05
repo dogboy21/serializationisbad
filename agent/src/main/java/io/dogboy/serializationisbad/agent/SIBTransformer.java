@@ -11,6 +11,7 @@ public class SIBTransformer implements ClassFileTransformer {
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) {
         try {
             if (className == null) return classfileBuffer;
+            if ("net/minecraft/launchwrapper/ITweaker".equals(className)) SerializationIsBadAgent.insertLaunchWrapperExclusion();
 
             String classNameDots = className.replace('/', '.');
 
