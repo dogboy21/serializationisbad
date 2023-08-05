@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class PatchModule {
+    public final static PatchModule EMPTY = new PatchModule();
+
     private Set<String> classesToPatch;
     private Set<String> classAllowlist;
     private Set<String> packageAllowlist;
