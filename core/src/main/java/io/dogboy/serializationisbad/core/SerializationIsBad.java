@@ -82,6 +82,7 @@ public class SerializationIsBad {
                 throw new RuntimeException("Failed to load local config file", e);
             }
         } else {
+            configFile.getParentFile().mkdirs();
             try (FileOutputStream fileOutputStream = new FileOutputStream(configFile)) {
                 fileOutputStream.write(gson.toJson(localConfig).getBytes(StandardCharsets.UTF_8));
             } catch (IOException e) {
