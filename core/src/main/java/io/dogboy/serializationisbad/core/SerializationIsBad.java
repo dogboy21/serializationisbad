@@ -114,6 +114,8 @@ public class SerializationIsBad {
             SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
             sslContext.init(null, null, new SecureRandom());
             connection.setSSLSocketFactory(sslContext.getSocketFactory());
+            connection.setConnectTimeout(60000);
+            connection.setReadTimeout(60000);
 
             if (connection.getResponseCode() != 200) throw new IOException("Invalid response code: " + connection.getResponseCode());
 
