@@ -1,6 +1,7 @@
 package io.dogboy.serializationisbad.core;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import io.dogboy.serializationisbad.core.config.SIBConfig;
 import io.dogboy.serializationisbad.core.logger.ILogger;
 import io.dogboy.serializationisbad.core.logger.Log4JLogger;
@@ -73,7 +74,7 @@ public class SerializationIsBad {
 
     private static SIBConfig readConfig(File minecraftDir) {
         File configFile = new File(new File(minecraftDir, "config"), "serializationisbad.json");
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         SIBConfig localConfig = new SIBConfig();
         if (configFile.isFile()) {
