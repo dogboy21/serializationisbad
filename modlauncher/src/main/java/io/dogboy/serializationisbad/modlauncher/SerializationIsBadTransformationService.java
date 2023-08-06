@@ -53,8 +53,6 @@ public class SerializationIsBadTransformationService implements ITransformationS
 
     @Override
     public Map.Entry<Set<String>, Supplier<Function<String, Optional<URL>>>> additionalClassesLocator() {
-        if (SerializationIsBad.isAgentActive()) return null;
-
         return new Map.Entry<Set<String>, Supplier<Function<String, Optional<URL>>>>() {
             @Override
             public Set<String> getKey() {

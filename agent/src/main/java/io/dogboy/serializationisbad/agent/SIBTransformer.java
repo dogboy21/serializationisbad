@@ -2,23 +2,25 @@ package io.dogboy.serializationisbad.agent;
 
 import io.dogboy.serializationisbad.core.Patches;
 import io.dogboy.serializationisbad.core.SerializationIsBad;
-import org.objectweb.asm.tree.ClassNode;
 
 import java.lang.instrument.ClassFileTransformer;
-import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
 
 public class SIBTransformer implements ClassFileTransformer {
     @Override
-    public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
-        String classNameDots = className.replace('/', '.');
+    public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) {
+        try {
+            if (className == null) return classfileBuffer;
+            if ("net/minecraft/launchwrapper/ITweaker".equals(className)) SerializationIsBadAgent.insertLaunchWrapperExclusion();
 
-        if (Patches.getPatchModuleForClass(classNameDots) == null) return classfileBuffer;
+            String classNameDots = className.replace('/', '.');
 
-        SerializationIsBad.logger.info("Applying patches to " + classNameDots);
+            if (Patches.getPatchModuleForClass(classNameDots) == null) return classfileBuffer;
 
-        ClassNode classNode = Patches.readClassNode(classfileBuffer);
-        Patches.applyPatches(classNameDots, classNode);
-        return Patches.writeClassNode(classNode);
+            return Patches.patchClass(classfileBuffer, classNameDots, false);
+        } catch (Throwable e) {
+            SerializationIsBad.logger.error("Failed to run agent class transformer", e);
+            return classfileBuffer;
+        }
     }
 }
