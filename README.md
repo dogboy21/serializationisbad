@@ -48,6 +48,21 @@ We have moved our affected mods list to another location! See the link below:
 
 This list will change frequently as we find more mods that could have vulnerabilities and as developers add patches to their own mods. If you want to help us in keeping this list up-to-date, please feel free to contribute! 
 
+## Technical Approach
+
+Our current approach to fixing the vulnerability is having a config file with all currently known mod classes that need to be patched.
+SIB then checks these classes at runtime and replaces the exploitable calls to `ObjectInputStream` with our safe
+[ClassFilteringObjectInputStream](https://github.com/dogboy21/serializationisbad/blob/master/core/src/main/java/io/dogboy/serializationisbad/core/ClassFilteringObjectInputStream.java)
+that only allows the deserialization of classes that are on an allowlist in the config file.
+
+This approach has the advantage that we only modify/block confirmed vulnerable uses of `ObjectInputStream`,
+while leaving other secure and miscellaneous uses of this class completely unaffected.
+As a result, the risk of potential gamebreaking issues caused by over-blocking is heavily minimized.
+With this approach, we also don't have any incompatibilities with older Java versions.
+
+This means that we need to add all vulnerable mods to our [config file](https://github.com/dogboy21/serializationisbad/blob/master/serializationisbad.json) so they get patched.
+Possible new cases of mods that are vulnerable are not patched unless added to the above mentioned config file.
+We're currently working on a good approach to also patch all other uses of `ObjectInputStream` in a safe way without breaking any mods in the process (see [#15](https://github.com/dogboy21/serializationisbad/pull/15) and [#18](https://github.com/dogboy21/serializationisbad/issues/18)).
 
 ## Credits
 
