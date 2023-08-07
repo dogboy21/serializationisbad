@@ -42,6 +42,8 @@ Unlike the blog post stated above, there are plenty of mods that are and could b
 
 **KEEP IN MIND THAT THIS LIST IS DEFINITELY NOT COMPLETE! THESE ARE JUST THE MODS WE ARE CURRENTLY AWARE OF!** CurseForge is already investigating the issue internally so we hope we can get a nearly complete list of vulnerable mods and versions in the future.
 
+**Also please keep in mind that this is a VULNERABILITY (one that also affected many other software projects in the past), not something added to the affected mods with any malicious intents. So don't harass any mod authors because their mods are affected and also don't call affected mods viruses or something else. That's just completely wrong.**
+
 We have moved our affected mods list to another location! See the link below:
 
 **[Affected Mods List](docs/mods.md)**
