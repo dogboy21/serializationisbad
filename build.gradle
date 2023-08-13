@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id "com.github.johnrengelman.shadow" version "8.1.1" apply false
 }
 
 subprojects {
@@ -19,11 +20,13 @@ subprojects {
 
 task bundleJar(type: Jar, dependsOn: subprojects.assemble) {
     archivesBaseName = rootProject.name
-    from project(':core').configurations.archives.allArtifacts.files.collect { zipTree(it) }
+    from zipTree(new File (project(':core').buildDir, "libs/core-${project(':core').version}-all.jar")) // i'm currently unable to correctly get the shadowJar output, so this should work for now
     from project(':legacyforge').configurations.archives.allArtifacts.files.collect { zipTree(it) }
     from project(':modlauncher').configurations.archives.allArtifacts.files.collect { zipTree(it) }
     from project(':agent').configurations.archives.allArtifacts.files.collect { zipTree(it) }
     from 'LICENSE.txt'
+
+    exclude 'META-INF/versions/**'
 
     manifest {
         from subprojects.collect{ it.jar.manifest }
