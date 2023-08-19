@@ -24,7 +24,7 @@ public class ClassFilteringObjectInputStream extends ObjectInputStream {
         this(in, patchModule, null);
     }
 
-    private boolean isClassAllowed(String className) {
+    private static boolean isClassAllowed(String className, PatchModule patchModule) {
         // strip all array dimensions, just get the base type
         while (className.startsWith("[")) {
             className = className.substring(1);
@@ -35,12 +35,12 @@ public class ClassFilteringObjectInputStream extends ObjectInputStream {
         }
 
         if (SerializationIsBad.getInstance().getConfig().getClassAllowlist().contains(className)
-                || this.patchModule.getClassAllowlist().contains(className)) {
+                || patchModule.getClassAllowlist().contains(className)) {
             return true;
         }
 
         Set<String> allowedPackages = new HashSet<>(SerializationIsBad.getInstance().getConfig().getPackageAllowlist());
-        allowedPackages.addAll(this.patchModule.getPackageAllowlist());
+        allowedPackages.addAll(patchModule.getPackageAllowlist());
 
         for (String allowedPackage : allowedPackages) {
             if (className.startsWith(allowedPackage + ".")) {
@@ -53,13 +53,7 @@ public class ClassFilteringObjectInputStream extends ObjectInputStream {
 
     @Override
     protected Class<?> resolveClass(ObjectStreamClass desc) throws IOException, ClassNotFoundException {
-        SerializationIsBad.logger.debug("Resolving class " + desc.getName());
-
-        if (!this.isClassAllowed(desc.getName())) {
-            SerializationIsBad.logger.warn("Tried to resolve class " + desc.getName() + ", which is not allowed to be deserialized");
-            if (SerializationIsBad.getInstance().getConfig().isExecuteBlocking())
-                throw new ClassNotFoundException("Class " + desc.getName() + " is not allowed to be deserialized");
-        }
+        ClassFilteringObjectInputStream.resolveClassPrecheck(desc, this.patchModule);
 
         if (this.parentClassLoader == null) {
             return super.resolveClass(desc);
@@ -75,6 +69,16 @@ public class ClassFilteringObjectInputStream extends ObjectInputStream {
             } else {
                 throw ex;
             }
+        }
+    }
+
+    public static void resolveClassPrecheck(ObjectStreamClass desc, PatchModule patchModule) throws ClassNotFoundException {
+        SerializationIsBad.logger.debug("Resolving class " + desc.getName());
+
+        if (!ClassFilteringObjectInputStream.isClassAllowed(desc.getName(), patchModule)) {
+            SerializationIsBad.logger.warn("Tried to resolve class " + desc.getName() + ", which is not allowed to be deserialized");
+            if (SerializationIsBad.getInstance().getConfig().isExecuteBlocking())
+                throw new ClassNotFoundException("Class " + desc.getName() + " is not allowed to be deserialized");
         }
     }
 
