@@ -6,6 +6,9 @@ import java.io.File;
 import java.lang.instrument.Instrumentation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SerializationIsBadAgent {
 
@@ -32,6 +35,41 @@ public class SerializationIsBadAgent {
             addClassLoaderExclusion.invoke(classLoader, "io.dogboy.serializationisbad");
         } catch (Exception e) {
             SerializationIsBad.logger.error("Failed to add LaunchWrapper exclusion", e);
+        }
+    }
+
+    /**
+     * Another hacky workaround for newer Fabric versions that enforce
+     * classpath isolation. This adds the path to the SiB jar to the
+     * list of jar paths that are allowed to be loaded by the parent
+     * classloader
+     *
+     * @param fabricClassLoader The classloader that was used to load the Fabric classes
+     */
+    static void insertFabricValidParentUrl(ClassLoader fabricClassLoader) {
+        try {
+            Path sibPath = new File(SerializationIsBadAgent.class.getProtectionDomain().getCodeSource().getLocation().toURI()).toPath();
+
+            // basically accessing the following:
+            // ((KnotClassDelegate) ((Knot) FabricLauncherBase.getLauncher()).classLoader).validParentCodeSources
+
+            Class<?> fabricLauncherBaseClass = Class.forName("net.fabricmc.loader.impl.launch.FabricLauncherBase", true, fabricClassLoader);
+            Method getLauncherMethod = fabricLauncherBaseClass.getDeclaredMethod("getLauncher");
+            Object fabricLauncher = getLauncherMethod.invoke(null);
+            Field classLoaderField = fabricLauncher.getClass().getDeclaredField("classLoader");
+            classLoaderField.setAccessible(true);
+            Object classLoader = classLoaderField.get(fabricLauncher);
+            Field validParentCodeSourcesField = classLoader.getClass().getDeclaredField("validParentCodeSources");
+            validParentCodeSourcesField.setAccessible(true);
+            @SuppressWarnings("unchecked")
+            Set<Path> validParentCodeSources = (Set<Path>) validParentCodeSourcesField.get(classLoader);
+
+            Set<Path> newValidParentCodeSources = new HashSet<>(validParentCodeSources);
+            newValidParentCodeSources.add(sibPath);
+
+            validParentCodeSourcesField.set(classLoader, newValidParentCodeSources);
+        } catch (Throwable e) {
+            SerializationIsBad.logger.error("Failed to insert Fabric valid parent URL", e);
         }
     }
 
