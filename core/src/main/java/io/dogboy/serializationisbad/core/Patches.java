@@ -20,7 +20,8 @@ public class Patches {
 
     public static PatchModule getPatchModuleForClass(String className) {
         for (PatchModule patchModule : SerializationIsBad.getInstance().getConfig().getPatchModules()) {
-            if (patchModule.getClassesToPatch().contains(className)) {
+            if (patchModule.getClassesToPatch().contains(className)
+                    || patchModule.getCustomOISClasses().contains(className)) {
                 return patchModule;
             }
         }
@@ -43,8 +44,13 @@ public class Patches {
 
     private static void applyPatches(String className, ClassNode classNode, boolean passClassLoader) {
         SerializationIsBad.logger.info("Applying patches to " + className);
+        PatchModule patchModule = Patches.getPatchModuleForClass(className);
+        if (patchModule == null) {
+            SerializationIsBad.logger.info("  No patches to apply");
+            return;
+        }
 
-        if ("java/io/ObjectInputStream".equals(classNode.superName)) {
+        if (patchModule.getCustomOISClasses().contains(className) && "java/io/ObjectInputStream".equals(classNode.superName)) {
             for (MethodNode methodNode : classNode.methods) {
                 if (!"resolveClass".equals(methodNode.name)) continue;
 
