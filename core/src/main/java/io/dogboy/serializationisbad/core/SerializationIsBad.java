@@ -9,10 +9,12 @@ import io.dogboy.serializationisbad.core.logger.NativeLogger;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -72,8 +74,17 @@ public class SerializationIsBad {
         return this.config;
     }
 
+    private static File getConfigDir(File minecraftDir) {
+        String configDirOverride = System.getProperty("serializationisbad.configdir");
+        if (configDirOverride != null) {
+            return new File(configDirOverride);
+        }
+
+        return new File(minecraftDir, "config");
+    }
+
     private static SIBConfig readConfig(File minecraftDir) {
-        File configFile = new File(new File(minecraftDir, "config"), "serializationisbad.json");
+        File configFile = new File(SerializationIsBad.getConfigDir(minecraftDir), "serializationisbad.json");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         SIBConfig localConfig = new SIBConfig();
@@ -98,7 +109,7 @@ public class SerializationIsBad {
             return localConfig;
         }
 
-        SIBConfig remoteConfig = SerializationIsBad.readRemoteConfig(localConfig.getRemoteConfigUrl());
+        SIBConfig remoteConfig = SerializationIsBad.readRemoteConfig(minecraftDir, localConfig.getRemoteConfigUrl());
         if (remoteConfig != null) {
             SerializationIsBad.logger.info("Using remote config file");
             return remoteConfig;
@@ -108,8 +119,10 @@ public class SerializationIsBad {
         return localConfig;
     }
 
-    private static SIBConfig readRemoteConfig(String url) {
+    private static SIBConfig readRemoteConfig(File minecraftDir, String url) {
         Gson gson = new Gson();
+        File cacheFile = new File(SerializationIsBad.getConfigDir(minecraftDir), "serializationisbad-remotecache.json");
+
         try {
             HttpsURLConnection connection = (HttpsURLConnection) new URL(url).openConnection();
             SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
@@ -120,14 +133,39 @@ public class SerializationIsBad {
 
             if (connection.getResponseCode() != 200) throw new IOException("Invalid response code: " + connection.getResponseCode());
 
-            try (InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8)) {
-                return gson.fromJson(inputStreamReader, SIBConfig.class);
+            byte[] configBytes = SerializationIsBad.readInputStream(connection.getInputStream());
+            SIBConfig remoteConfig = gson.fromJson(new String(configBytes, StandardCharsets.UTF_8), SIBConfig.class);
+
+            try (FileOutputStream fileOutputStream = new FileOutputStream(cacheFile)) {
+                fileOutputStream.write(configBytes);
             }
+
+            return remoteConfig;
         } catch (Exception e) {
             SerializationIsBad.logger.error("Failed to load remote config file", e);
         }
 
+        if (cacheFile.isFile()) {
+            try (FileInputStream fileInputStream = new FileInputStream(cacheFile)) {
+                return gson.fromJson(new InputStreamReader(fileInputStream, StandardCharsets.UTF_8), SIBConfig.class);
+            } catch (Exception e) {
+                SerializationIsBad.logger.error("Failed to load cached remote config file", e);
+            }
+        }
+
         return null;
+    }
+
+    private static byte[] readInputStream(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[4096];
+        int read;
+
+        while ((read = inputStream.read(buffer)) != -1) {
+            byteArrayOutputStream.write(buffer, 0, read);
+        }
+
+        return byteArrayOutputStream.toByteArray();
     }
 
     private static String getImplementationType() {
