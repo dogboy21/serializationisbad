@@ -11,6 +11,7 @@ import org.objectweb.asm.tree.ClassNode;
 
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SIBTransformer implements ITransformer<ClassNode> {
     private final PatchModule patchModule;
@@ -36,7 +37,8 @@ public class SIBTransformer implements ITransformer<ClassNode> {
 
     @Override
     public Set<Target> targets() {
-        return this.patchModule.getClassesToPatch().stream()
+        return Stream.concat(this.patchModule.getClassesToPatch().stream(),
+                        this.patchModule.getCustomOISClasses().stream())
                 .map(Target::targetClass)
                 .collect(Collectors.toSet());
     }

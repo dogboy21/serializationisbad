@@ -5,11 +5,13 @@ import java.util.Set;
 
 public class PatchModule {
     private Set<String> classesToPatch;
+    private Set<String> customOISClasses;
     private Set<String> classAllowlist;
     private Set<String> packageAllowlist;
 
     public PatchModule() {
         this.classesToPatch = new HashSet<>();
+        this.customOISClasses = new HashSet<>();
         this.classAllowlist = new HashSet<>();
         this.packageAllowlist = new HashSet<>();
     }
@@ -20,6 +22,15 @@ public class PatchModule {
 
     public void setClassesToPatch(Set<String> classesToPatch) {
         this.classesToPatch = classesToPatch;
+    }
+
+
+    public Set<String> getCustomOISClasses() {
+        return this.customOISClasses;
+    }
+
+    public void setCustomOISClasses(Set<String> customOISClasses) {
+        this.customOISClasses = customOISClasses;
     }
 
     public Set<String> getClassAllowlist() {
@@ -37,4 +48,5 @@ public class PatchModule {
     public void setPackageAllowlist(Set<String> packageAllowlist) {
         this.packageAllowlist = packageAllowlist;
     }
+
 }

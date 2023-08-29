@@ -20,7 +20,8 @@ public class Patches {
 
     public static PatchModule getPatchModuleForClass(String className) {
         for (PatchModule patchModule : SerializationIsBad.getInstance().getConfig().getPatchModules()) {
-            if (patchModule.getClassesToPatch().contains(className)) {
+            if (patchModule.getClassesToPatch().contains(className)
+                    || patchModule.getCustomOISClasses().contains(className)) {
                 return patchModule;
             }
         }
@@ -43,6 +44,33 @@ public class Patches {
 
     private static void applyPatches(String className, ClassNode classNode, boolean passClassLoader) {
         SerializationIsBad.logger.info("Applying patches to " + className);
+        PatchModule patchModule = Patches.getPatchModuleForClass(className);
+        if (patchModule == null) {
+            SerializationIsBad.logger.info("  No patches to apply");
+            return;
+        }
+
+        if (patchModule.getCustomOISClasses().contains(className) && "java/io/ObjectInputStream".equals(classNode.superName)) {
+            for (MethodNode methodNode : classNode.methods) {
+                if (!"resolveClass".equals(methodNode.name)) continue;
+
+                InsnList additionalInstructions = new InsnList();
+                additionalInstructions.add(new VarInsnNode(Opcodes.ALOAD, 1)); // Class Descriptor
+                additionalInstructions.add(new LdcInsnNode(className));
+                additionalInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "io/dogboy/serializationisbad/core/Patches",
+                        "getPatchModuleForClass", "(Ljava/lang/String;)Lio/dogboy/serializationisbad/core/config/PatchModule;", false));
+                additionalInstructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "io/dogboy/serializationisbad/core/ClassFilteringObjectInputStream",
+                        "resolveClassPrecheck", "(Ljava/io/ObjectStreamClass;Lio/dogboy/serializationisbad/core/config/PatchModule;)V", false));
+
+                methodNode.instructions.insertBefore(methodNode.instructions.getFirst(), additionalInstructions);
+
+                SerializationIsBad.logger.info("  Injecting resolveClass precheck in method " + methodNode.name);
+
+                break;
+            }
+
+            return;
+        }
 
         for (MethodNode methodNode : classNode.methods) {
             InsnList instructions = methodNode.instructions;
