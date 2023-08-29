@@ -12,6 +12,7 @@ public class SIBTransformer implements ClassFileTransformer {
         try {
             if (className == null) return classfileBuffer;
             if ("net/minecraft/launchwrapper/ITweaker".equals(className)) SerializationIsBadAgent.insertLaunchWrapperExclusion();
+            if ("net/fabricmc/loader/ModContainer".equals(className)) SerializationIsBadAgent.insertFabricValidParentUrl(loader);
 
             String classNameDots = className.replace('/', '.');
 
