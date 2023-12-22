@@ -289,6 +289,16 @@
         },
         {
             "classesToPatch": [
+                "radixcore.network.ByteBufIO"
+            ],
+            "classAllowlist": [],
+            "packageAllowlist": [
+                "radixcore",
+                "mca"
+            ]
+        },
+        {
+            "classesToPatch": [
                 "net.smart.moving.SmartMovingPacketStream"
             ],
             "classAllowlist": [],
